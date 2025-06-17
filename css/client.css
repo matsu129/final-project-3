@@ -24,9 +24,6 @@ header img{
   height: 40vh;
   width: auto;
 }
-#products li{
-  
-}
 #products h2{
   font-size: clamp(0.5rem, 0.3vw + 1rem, 2rem);
 }
