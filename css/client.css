@@ -1,29 +1,68 @@
-header nav{
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  height: 10vh;
-  background-color: pink;
+/* section */
+section h2{
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--brown);
 }
-header img{
-  display: block;
-  height: 8vh;
-  width: auto;
+section ul{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 3vh clamp(0.5rem, 10vw, 50rem);
+  gap: 1vw;
+  justify-items: center;
 }
-
-/* Products */
-#products ul{
+section li{
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  background-color: white;
+  border: solid 1px rgb(211, 210, 210);
+  border-radius: 1em;
+}
+section li a{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
-  
-  padding: 0 clamp(3rem, 2vw, 5rem);
 }
-#products img{
-  height: 40vh;
-  width: auto;
+section img{
+  max-width: 60%;
+  min-width: 100px;
+  height: auto;
+  transition: transform 0.3s ease;
 }
-#products h2{
+section h3{
   font-size: clamp(0.5rem, 0.3vw + 1rem, 2rem);
+}
+section h3, section p {
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+section a:link,
+section a:visited{
+  color: var(--brown);
+}
+section a:hover img{
+  transform: scale(1.05);
+}
+section a:hover h3{
+  color: var(--lightbrown);
+  text-decoration: underline;
+}
+@media (max-width: 1020px) {
+  section ul{
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
+}
+}
+@media (max-width: 768px) {
+  section ul{
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+  #mainnav #welcome-img{
+    display: none;
+  }
 }

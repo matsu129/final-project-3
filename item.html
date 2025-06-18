@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/item.css">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <title>item | Chiikawa Shop</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="mainnav" id="mainnav">
+      <img src= "./assets/clients/welcome_320x.avif" alt="welcome"
+       id="welcome-img">
+      <a href="./client.html"><img src= "./assets/clients/logo_chiikawamarket.avif" alt= "logo"></a>
+      <a href="./cart.html"><img src= "./assets/clients/en_btn_cart_112x.webp" alt= "cart"></a>
+    </nav>
+    <nav aria-label="subnav" id="subnav">
+      <ul>
+        <li><a href="./client.html#new-items">New Items</a></li>
+        <li><a href="./client.html#plush">Plush</a></li>
+        <li><a href="./client.html#mascot">Mascot</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="product-container">
+      <div class="product-imgs">
+        <img id="main-img" src="./assets/clients/items/new/4571609335016_1.webp" alt="">
+        <div class="thumbnail-gallery">
+          <img id="thumbnail-1" src="./assets/clients/items/new/4571609335016_1.webp" alt="" class="selected">
+          <img id="thumbnail-2" src="./assets/clients/items/new/4571609335016_2.webp" alt="" >
+          <img id="thumbnail-3" src="./assets/clients/items/new/4571609335016_3.webp" alt="" >
+        </div>
+      </div>
+      <div class="product-details">
+        <h1 id="product-name">Loading</h1>
+        <p><strong>Price:</strong> ¥1,870 (tax included)</p>
+        <p><strong>Description:</strong> Cute little plush mascot from Chiikawa Bakery series. Perfect for your collection!</p>
+        <button>Add to Cart</button>
+        <div id="precautions">
+          <p>* This product photo is a sample, so it may be slightly different from the actual product. Please note.</p>
+          <p>* Due to the manufacturing convenience, it may differ slightly from the original character design. Please note.</p>
+        </div>
+      </div>
+    </section>
+    <section id="reviews">
+      <h2>Reviews</h2>
+      <div id="review-container">
+        <ul id="review-list">
+          <li>No reviews yet.</li>
+        </ul>
+        <form id="review-form">
+          <label>
+            Name:
+            <input type="name">
+          </label>
+          <label>
+            Rating:
+            <select id="rating" required>
+              <option value="">--</option>
+              <option valuw="5">★★★★★</option>
+              <option valuw="4">★★★★</option>
+              <option valuw="3">★★★</option>
+              <option valuw="2">★★</option>
+              <option valuw="1">★</option>
+            </select>
+          </label>
+          <label>
+            Comment:
+            <textarea id="comment" rows="7" required></textarea>
+          </label>
+          <button type="submit">Submit Review</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
