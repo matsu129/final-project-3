@@ -4,14 +4,14 @@ section h2{
   text-align: center;
   color: var(--brown);
 }
-section ul{
+section .product-section{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 3vh clamp(0.5rem, 10vw, 50rem);
   gap: 1vw;
   justify-items: center;
 }
-section li{
+section .product-card{
   width: 100%;
   height: auto;
   padding: 1rem;
@@ -19,7 +19,7 @@ section li{
   border: solid 1px rgb(211, 210, 210);
   border-radius: 1em;
 }
-section li a{
+section .product-card a{
   display: flex;
   flex-direction: column;
   justify-content: start;
