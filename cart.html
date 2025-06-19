@@ -3,23 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/cart.css">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <title>Shopping cart | Chiikawa Shop</title>
 </head>
 <body>
   <header>
     <nav aria-label="mainnav" id="mainnav">
       <img src= "./assets/clients/welcome_320x.avif" alt="welcome"
        id="welcome-img">
-      <a href="#"><img src= "./assets/clients/logo_chiikawamarket.avif" alt= "logo"></a>
-      <a href="./cart.html"><img src= "./assets/clients/en_btn_cart_112x.webp" alt= "cart"></a>
+      <a href="./client.html"><img src= "./assets/clients/logo_chiikawamarket.avif" alt= "logo"></a>
+      <a href="#"><img src= "./assets/clients/en_btn_cart_112x.webp" alt= "cart"></a>
     </nav>
     <nav aria-label="subnav" id="subnav">
       <ul>
-        <li><a href="#new-items">New Items</a></li>
-        <li><a href="#plush">Plush</a></li>
-        <li><a href="#mascot">Mascot</a></li>
+        <li><a href="./client.html#new-items">New Items</a></li>
+        <li><a href="./client.html#plush">Plush</a></li>
+        <li><a href="./client.html#mascot">Mascot</a></li>
       </ul>
     </nav>
   </header>
+  <main>
+    <section id="cart-container">
+      <h1>Your cart</h1>
+      <ul id="cart">
+        <li>Your cart is empty</li>
+      </ul>
+      <div id="estimated-total"></div>
+    </section>
+  </main>
 </body>
 </html>

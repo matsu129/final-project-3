@@ -1,0 +1,13 @@
+/* cart-container */
+#cart-container{
+  background-color: white;
+  border: solid 1px rgb(211, 210, 210);
+  border-radius: 1em;
+  margin: 3vh clamp(0.5rem, 10vw, 50rem);
+}
+#cart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
