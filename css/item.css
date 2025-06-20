@@ -29,6 +29,7 @@
   font-size: clamp(1rem, 1.5vw, 32px);
 }
 .product-details h1{
+  font-size: var(--h2-font-size);
   padding-bottom: 5vh;
 }
 .product-details p{
@@ -36,6 +37,13 @@
 }
 #precautions{
   padding-top: 10vh;
+}
+#label-quantity{
+  display: block;
+  padding-bottom: 3vh;
+}
+#quantity{
+  padding-left: 1ch;
 }
 
 /* reviews */

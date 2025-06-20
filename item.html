@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./css/item.css">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script type="module" src="./js/item.js"></script>
   <title>item | Chiikawa Shop</title>
 </head>
 <body>
@@ -28,17 +29,18 @@
   <main>
     <section id="product-container">
       <div class="product-imgs">
-        <img id="main-img" src="./assets/clients/items/new/4571609335016_1.webp" alt="">
+        <img id="main-img" src="" alt="">
         <div class="thumbnail-gallery">
-          <img id="thumbnail-1" src="./assets/clients/items/new/4571609335016_1.webp" alt="" class="selected">
-          <img id="thumbnail-2" src="./assets/clients/items/new/4571609335016_2.webp" alt="" >
-          <img id="thumbnail-3" src="./assets/clients/items/new/4571609335016_3.webp" alt="" >
+          <img id="thumbnail-1" src="" alt="" class="selected">
+          <img id="thumbnail-2" src="" alt="" >
+          <img id="thumbnail-3" src="" alt="" >
         </div>
       </div>
       <div class="product-details">
-        <h1 id="product-name">Loading</h1>
-        <p><strong>Price:</strong> ¥1,870 (tax included)</p>
-        <p><strong>Description:</strong> Cute little plush mascot from Chiikawa Bakery series. Perfect for your collection!</p>
+        <h1 id="product-name"></h1>
+        <p><strong>Price:</strong><span id="price"></span>(tax included)</p>
+        <p><strong>Description:</strong><span id="description"></span></p>
+        <label id="label-quantity"><strong>Quantity:</strong><input type="number" id="quantity" value="1" /></label>
         <button>Add to Cart</button>
         <div id="precautions">
           <p>* This product photo is a sample, so it may be slightly different from the actual product. Please note.</p>
@@ -49,8 +51,7 @@
     <section id="reviews">
       <h2>Reviews</h2>
       <div id="review-container">
-        <ul id="review-list">
-          <li>No reviews yet.</li>
+        <ul id="review-List">
         </ul>
         <form id="review-form">
           <label>
@@ -59,13 +60,13 @@
           </label>
           <label>
             Rating:
-            <select id="rating" required>
+            <select id="stars" required>
               <option value="">--</option>
-              <option valuw="5">★★★★★</option>
-              <option valuw="4">★★★★</option>
-              <option valuw="3">★★★</option>
-              <option valuw="2">★★</option>
-              <option valuw="1">★</option>
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★</option>
+              <option value="3">★★★</option>
+              <option value="2">★★</option>
+              <option value="1">★</option>
             </select>
           </label>
           <label>
