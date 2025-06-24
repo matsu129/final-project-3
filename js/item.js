@@ -31,9 +31,17 @@ function displayProduct(product) {
 function displayReviews(productReviews) {
   const reviewList = document.querySelector('#review-List');
   reviewList.innerHTML = '';
+  if (productReviews.length === 0) {
+    const noReview = document.createElement('li');
+    noReview.textContent = 'No reviews yet';
+    reviewList.appendChild(noReview);
+    return;
+  }
+  
   productReviews.forEach(r => {
     const li = document.createElement('li');
-    li.innerHTML = `⭐️ ${r.stars}/5 - ${r.comment}`;
+    const stars = '★'.repeat(r.stars) + '⭐︎'.repeat(5 - r.stars);
+    li.innerHTML = `${stars} - ${r.comment}`;
     reviewList.appendChild(li);
   });
 }
