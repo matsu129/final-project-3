@@ -4,10 +4,39 @@
   border: solid 1px rgb(211, 210, 210);
   border-radius: 1em;
   margin: 3vh clamp(0.5rem, 10vw, 50rem);
+  padding: 3vh ;
 }
-#cart{
+#cart-items{
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: start;
+  padding: 2vw;
+}
+.cart-item{
+  display: flex;
+  margin: 1vh;
+  gap: 1vw;
+}
+.cart-item img{
+  max-width: 7vw;
+  height: auto;
+  object-fit: contain;
+  border: solid 1px rgb(230, 230, 230);
+}
+.cart-info{
+  display: flex;
   align-items: center;
-  padding: 2rem;
+  width:100%;
+  gap:1vw;
+}
+.remove-btn{
+  background: none;
+  border:none;
+  color:gray;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+#cart-container h3,p{
+  text-align: center;
 }

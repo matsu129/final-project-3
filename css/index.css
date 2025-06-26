@@ -52,13 +52,13 @@ section a:hover h3{
   text-decoration: underline;
 }
 @media (max-width: 1020px) {
-  section ul{
+  section .product-section{
   grid-template-columns: repeat(3, 1fr);
   padding: 1rem;
 }
 }
 @media (max-width: 768px) {
-  section ul{
+  section .product-section{
     grid-template-columns: repeat(2, 1fr);
     padding: 1rem;
   }

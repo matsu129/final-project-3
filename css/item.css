@@ -27,6 +27,7 @@
   background-color: rgb(70, 158, 253);
   color: var(--white);
   font-size: clamp(1rem, 1.5vw, 32px);
+  cursor: pointer;
 }
 .product-details h1{
   font-size: var(--h2-font-size);
@@ -75,6 +76,7 @@ select{
   color: var(--white);
   font-size: clamp(0.5rem, 1vw, 1.5rem);
   margin:2vh 0;
+  cursor: pointer;
 }
 textarea{
   resize:none;

@@ -1,4 +1,4 @@
-import { fetchJSON, formatPrice } from "./utils";
+import { fetchJSON, formatPrice } from './utils.js';
 
 async function loadCart() {
   const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
@@ -8,7 +8,11 @@ async function loadCart() {
   totalPriceElem.textContent = '';
 
   if (cart.length === 0) {
-    cartContainere.innerHTML = '<p>Your cart is empty.</p>'
+    cartContainer.innerHTML = '<p>Your cart is empty.</p>'
+    const oldHeading = document.querySelector('#cart-total-heading');
+    if (oldHeading) {
+      oldHeading.remove();
+    }
     return;
   }
 
@@ -27,28 +31,39 @@ async function loadCart() {
       <img src="${product.image}" alt="${product.name}" class="cart-thumb" />
       <div class="cart-info">
         <h2>${product.name}</h2>
-        <p>${formatPrice(product.price)} * ${item.quantity} = ${formatPrice(itemTotal)}}</p>
-        <button class="remove-btn" data-id="${product.id}">Remove</button>
+        <p>${formatPrice(product.price)} * ${item.quantity} = ${formatPrice(itemTotal)}</p>
+        <button class="remove-btn" data-id="${product.id}">
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </div>
     `;
     cartContainer.appendChild(div);
   });
 
+  if (cart.length !== 0) {
+    let existingHeading = document.querySelector('#cart-total-heading');
+    if (!existingHeading) {
+      const heading = document.createElement('h3');
+      heading.id = 'cart-total-heading';
+      heading.textContent = 'Estimated total';
+      totalPriceElem.before(heading);
+    }
+  }
   totalPriceElem.textContent = formatPrice(total);
 
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', e => {
-      const id = e.target.dataset.id;
+      const id = e.currentTarget.dataset.id;
       removeFromCart(id);
       loadCart();
-    })
-  })
-
-  function removeFromCart(productId) {
-    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    cart = cart.filter(item => item.id !== productId);
-    localStorage.setItem('shoppingCart', JSONstringfy(cart));
-  }
-
-  window.addEventListener('DOMContentLoaded', loadCart);
+    });
+  });
 }
+
+function removeFromCart(productId) {
+  let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  cart = cart.filter(item => item.id !== productId);
+  localStorage.setItem('shoppingCart', JSON.stringify(cart));
+}
+
+window.addEventListener('DOMContentLoaded', loadCart);
