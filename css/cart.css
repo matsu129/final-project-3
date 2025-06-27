@@ -40,3 +40,14 @@
 #cart-container h3,p{
   text-align: center;
 }
+#checkout-btn{
+  width: clamp(200px, 30vw, 400px);
+  height: 7vh;
+  border: none;
+  background-color: rgb(70, 158, 253);
+  color: var(--white);
+  font-size: clamp(1rem, 1.5vw, 32px);
+  cursor: pointer;
+  margin: 5vh auto;
+  display: block;
+}

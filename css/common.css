@@ -70,3 +70,27 @@ h2{
   color: var(--lightbrown);
   text-decoration: underline;
 }
+
+/* footer */
+footer{
+  margin: 6vw;
+}
+footer img{
+ display: block;
+ margin: auto;
+ width: 80vw;
+ height: auto;
+ object-fit: contain;
+}
+footer ul{
+  display: flex;
+  justify-content: space-evenly;
+}
+footer a:link,
+footer a:visited{
+  color: var(--brown);
+}
+footer a:hover{
+  color: var(--lightbrown);
+  text-decoration: underline;
+}

@@ -1,15 +1,20 @@
 import { fetchJSON, formatPrice } from './utils.js';
+const checkoutBtn = document.querySelector('#checkout-btn');
 
 async function loadCart() {
   const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
   const cartContainer = document.querySelector('#cart-items');
   const totalPriceElem = document.querySelector('#total-price');
+  
   cartContainer.innerHTML = '';
   totalPriceElem.textContent = '';
 
   if (cart.length === 0) {
     cartContainer.innerHTML = '<p>Your cart is empty.</p>'
     const oldHeading = document.querySelector('#cart-total-heading');
+    if (checkoutBtn) {
+      checkoutBtn.style.display = 'none';
+    }
     if (oldHeading) {
       oldHeading.remove();
     }
@@ -66,4 +71,23 @@ function removeFromCart(productId) {
   localStorage.setItem('shoppingCart', JSON.stringify(cart));
 }
 
+checkoutBtn.addEventListener('click', async () => {
+  if (!confirm('Proceed to checkout?')) return;
+  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  const res = await fetch('/api/cart/purchase', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(cart)
+  });
+
+  if (res.ok) {
+    localStorage.removeItem('shoppingCart');
+    await loadCart();
+    alert('Thank you for your purchase!');
+  } else {
+    const err = await res.text();
+    alert('Checkout failed: ' + err);
+  }
+  
+});
 window.addEventListener('DOMContentLoaded', loadCart);

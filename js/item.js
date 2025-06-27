@@ -26,6 +26,19 @@ function displayProduct(product) {
   document.querySelector('#thumbnail-3').src = product.thumbnails[2];
   document.querySelector('#price').textContent = formatPrice(product.price);
   document.querySelector('#description').textContent = product.description;
+
+  const addBtn = document.querySelector('#add-to-cart');
+  if(product.stock === 0) {
+    addBtn.textContent = 'Sold out';
+    addBtn.disabled = true;
+    addBtn.style.backgroundColor ='#ccc';
+    addBtn.style.cursor = 'not-allowed';
+  } else {
+    addBtn.textContent ='Add to Cart';
+    addBtn.disabled = false;
+    addBtn.style.backgroundColor = '';
+    addBtn.style.cursor = 'pointer';
+  }
 }
 
 function displayReviews(productReviews) {
