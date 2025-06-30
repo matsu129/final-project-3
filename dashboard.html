@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="./js/dashboard.js"></script>
   <title>dashboard</title>
 </head>
 <body>
@@ -13,12 +14,24 @@
   </header>
   <main>
     <section>
-      <h2>StockChart</h2>
-      <canvas id="stockChart" width="400" height="200"></canvas>
+      <h2>Stock/SalesChart</h2>
+      <canvas id="stockSalesChart" width="400" height="200"></canvas>
+    </section>
+    <section>
+      <h2>DailySalesChart</h2>
+      <canvas id="dailySalesChart" width="400" height="200"></canvas>
     </section>
     <section>
       <h2>ReviewChart</h2>
       <canvas id="reviewChart" width="400" height="200"></canvas>
+    </section>
+    <section>
+      <h2>AverageScoreChart</h2>
+      <canvas id="avgScoreChart"></canvas>
+    </section>
+    <section>
+      <h2>SentimentChart</h2>
+      <canvas id="sentimentChart"></canvas>
     </section>
   </main>
 </body>
