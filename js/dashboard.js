@@ -71,17 +71,34 @@ function renderDailySalesChart(sales) {
     dailyTotals[date] = (dailyTotals[date] || 0) + amount;
   });
 
-  const sortedDates = Object.keys(dailyTotals).sort();
-  const sortedTotals = sortedDates.map(date => dailyTotals[date]);
+  const dateKeys = Object.keys(dailyTotals).sort();
+  const startDate = new Date(dateKeys[0]);
+  const endDate = new Date(dateKeys[dateKeys.length - 1]);
+
+  function generateDateRange(start, end) {
+    const result = [];
+    const current = new Date(start);
+    while (current <= end) {
+      const yyyy = current.getFullYear();
+      const mm = String(current.getMonth() +1).padStart(2, '0');
+      const dd = String(current.getDate()).padStart(2, '0');
+      result.push(`${yyyy}-${mm}-${dd}`);
+      current.setDate(current.getDate() + 1);
+    }
+    return result;
+  }
+
+  const allDates = generateDateRange(startDate, endDate);
+  const completeTotals = allDates.map(date => dailyTotals[date] ?? 0);
 
   const ctx = document.getElementById('dailySalesChart').getContext('2d');
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: sortedDates,
+      labels: allDates,
       datasets: [{
         label: 'Daily Sales (¥)',
-        data: sortedTotals,
+        data: completeTotals,
         fill: false,
         borderColor:'rgba(255, 99, 132, 1)',
         tension: 0.3
@@ -89,8 +106,19 @@ function renderDailySalesChart(sales) {
     },
     options: {
       scales: {
-        x: { title: { display: true, text: 'Date' } },
-        y: { title: { display: true, text: 'Sales (¥)'} }
+        x: { 
+          title: { display: true, text: 'Date' } ,
+          ticks: { maxRotation: 90, minRotation: 45}
+        },
+        y: { 
+          title: { display: true, text: 'Sales (¥)'},
+          beginAtZero: true
+        }
+      },
+      responsive: true,
+      plugins: {
+        tooltip: { mode: 'index', intersect: false },
+        legend: { display: true }
       }
     }
   });
@@ -144,7 +172,7 @@ function renderAverageScoreChart(products, avgScores) {
 function renderSentimentChart(products, sentiments) {
   const labels = products.map(p => p.name);
   const positive = products.map(p => sentiments[p.id]?.positive || 0);
-  const negative = products.map(p => sentiments[p.id]?.nagative || 0);
+  const negative = products.map(p => sentiments[p.id]?.negative || 0);
 
   const ctx = document.getElementById('sentimentChart').getContext('2d');
   new Chart(ctx, {
