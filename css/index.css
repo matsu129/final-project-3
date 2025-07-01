@@ -12,6 +12,7 @@ section .product-section{
   justify-items: center;
 }
 section .product-card{
+  position: relative;
   width: 100%;
   height: auto;
   padding: 1rem;
@@ -50,6 +51,18 @@ section a:hover img{
 section a:hover h3{
   color: var(--lightbrown);
   text-decoration: underline;
+}
+.sold-out {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(72, 72, 72, 0.8);
+  color: white;
+  font-size: 3vw;
+  border-top-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  padding: 1vw;
+  z-index: 999;
 }
 @media (max-width: 1020px) {
   section .product-section{

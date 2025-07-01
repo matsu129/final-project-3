@@ -26,6 +26,13 @@ function displayProduct(product) {
   document.querySelector('#thumbnail-3').src = product.thumbnails[2];
   document.querySelector('#price').textContent = formatPrice(product.price);
   document.querySelector('#description').textContent = product.description;
+  const quantityInput = document.querySelector('#quantity');
+  quantityInput.value = 1;
+  quantityInput.min = 1;
+  quantityInput.max = product.stock;
+  if (product.stock === 1) {
+    quantityInput.readOnly = true;
+  }
 
   const addBtn = document.querySelector('#add-to-cart');
   if(product.stock === 0) {
@@ -78,9 +85,21 @@ function handleReviewSubmit(event) {
 
 function addToCart() {
   const quantity = +document.querySelector('#quantity').value;
-  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  const maxStock = +document.querySelector('#quantity').max;
+  if (quantity > maxStock) {
+    alert(`Sorry, only ${maxStock} item(s) in stock.`);
+    return;
+  }
 
+  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
   const existing = cart.find(i => i.id === productId);
+  const currentQuantity = existing ? existing.quantity : 0;
+  const newTotal = currentQuantity + quantity;
+
+  if (newTotal > maxStock) {
+    alert(`You already have ${currentQuantity} item(s) in your cart. Only ${max-Stock - currentQuantity} more can be added.`);
+    return
+  }
   if (existing) {
     existing.quantity += quantity;
   } else {

@@ -14,7 +14,14 @@ async function loadProducts() {
   products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'product-card';
-    card.innerHTML = `
+    card.style.position = 'relative';
+    const soldOutLabel = document.createElement('div');
+    soldOutLabel.textContent = 'SOLD OUT';
+    soldOutLabel.className = 'sold-out';
+    if (product.stock === 0) {
+      card.appendChild(soldOutLabel);
+    }
+    card.innerHTML += `
         <a href="./item.html?id=${product.id}">
           <img src="${product.image}" alt= "${product.name}">
           <h3>${product.name}</h3>
