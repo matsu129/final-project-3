@@ -46,6 +46,17 @@ function displayProduct(product) {
     addBtn.style.backgroundColor = '';
     addBtn.style.cursor = 'pointer';
   }
+
+  document.querySelectorAll('.thumbnail-gallery img').forEach(thumbnail => {
+    thumbnail.addEventListener('click', () => {
+      document.querySelector('#main-img').src = thumbnail.src;
+
+      document.querySelectorAll('.thumbnail-gallery img').forEach(img => {
+        img.classList.remove('selected');
+      });
+      thumbnail.classList.add('selected');
+    })
+  })
 }
 
 function displayReviews(productReviews) {
@@ -68,17 +79,25 @@ function displayReviews(productReviews) {
 
 function handleReviewSubmit(event) {
   event.preventDefault();
-  const stars = +document.querySelector('#stars').value;
-  const comment = document.querySelector('#comment').value;
+  const starsInput = document.querySelector('#stars');
+  const commentInput = document.querySelector('#comment');
+  const stars = +starsInput.value;
+  const comment = commentInput.value;
 
   fetch(`/api/reviews`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ productId, stars, comment })
   })
-  .then(() => {
+  .then(async () => {
     alert('Review submitted!');
-    loadProduct();
+
+    starsInput.value = '';
+    commentInput.value = '';
+
+    const allReviews = await fetchJSON('/api/reviews');
+    const productReviews = allReviews.filter(r => String(r.productId) === String(productId));
+    displayReviews(productReviews);
   })
   .catch(err => console.error('Failed to submit review:', err));
 }

@@ -62,7 +62,16 @@ section a:hover h3{
   border-top-left-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
   padding: clamp(10px, 0.5vw, 150px);
-  z-index: 999;
+  z-index: 998;
+}
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.product-card.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 @media (max-width: 1020px) {
   section .product-section{
@@ -74,8 +83,5 @@ section a:hover h3{
   section .product-section{
     grid-template-columns: repeat(2, 1fr);
     padding: 1rem;
-  }
-  #mainnav #welcome-img{
-    display: none;
   }
 }

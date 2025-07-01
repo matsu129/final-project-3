@@ -33,6 +33,24 @@ async function loadProducts() {
       sections[category].appendChild(card);
     }
   });
+  observeCards();
+}
+
+function observeCards() {
+  const allCards = document.querySelectorAll('.product-card');
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { 
+    threshold: 0.3 
+  });
+  allCards.forEach(card => {
+    observer.observe(card);
+  })
 }
 
 loadProducts();

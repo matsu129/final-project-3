@@ -20,6 +20,9 @@
 html {
   scroll-behavior: smooth;
 }
+section {
+  scroll-margin-top: calc(10vh + 2rem);
+}
 body{
   font-family: 'M PLUS Rounded 1c', sans-serif;
   background-color: var(--lightgreen);
@@ -34,8 +37,16 @@ h2{
   font-weight: var(--h2-font-wight);
   color: var(--brown);
 }
+/* main */
+main{
+  padding-top: calc(10vh + 2rem);
+}
 /* header */
 /* mainnav */
+header{
+  position:fixed;
+  z-index: 999;
+}
 #mainnav{
   display:flex;
   justify-content: space-around;
@@ -70,27 +81,47 @@ h2{
   color: var(--lightbrown);
   text-decoration: underline;
 }
+@media (max-width: 768px) {
+  #mainnav #welcome-img{
+    display: none;
+  }
+}
 
 /* footer */
-footer{
-  margin: 6vw;
-}
-footer img{
- display: block;
- margin: auto;
- width: 80vw;
- height: auto;
- object-fit: contain;
-}
-footer ul{
-  display: flex;
-  justify-content: space-evenly;
-}
-footer a:link,
-footer a:visited{
+footer {
+  background-color: #fdf8f3;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid #e0dcd5;
+  font-size: 0.9rem;
   color: var(--brown);
 }
-footer a:hover{
+.footer-logo img {
+  width: 200px;
+  max-width: 80vw;
+  height: auto;
+  margin: 0 auto 1.5rem;
+}
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--brown);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
   color: var(--lightbrown);
   text-decoration: underline;
+}
+footer p {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #999;
 }

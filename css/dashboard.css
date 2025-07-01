@@ -47,6 +47,11 @@ canvas {
   height: auto !important;
   max-height: 400px;
 }
+#monthly-total, #monthly-diff {
+  font-weight: bold;
+  margin: 5px 0;
+  color: #444;
+}
 @media (max-width: 768px) {
   main {
     padding: 1rem;

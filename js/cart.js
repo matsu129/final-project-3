@@ -36,13 +36,23 @@ async function loadCart() {
       <img src="${product.image}" alt="${product.name}" class="cart-thumb" />
       <div class="cart-info">
         <h2>${product.name}</h2>
-        <p>${formatPrice(product.price)} * ${item.quantity} = ${formatPrice(itemTotal)}</p>
-        <button class="remove-btn" data-id="${product.id}">
-          <i class="fas fa-trash-alt"></i>
-        </button>
+        <div class="cart-line">
+          <p>${formatPrice(product.price)} * <input type="number" class="qty-input" data-id="${product.id}" min="1" max="${product.stock}" value="${item.quantity}">  = ${formatPrice(itemTotal)}</p>
+          <button class="remove-btn" data-id="${product.id}">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        <div>
       </div>
     `;
     cartContainer.appendChild(div);
+  });
+  document.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', e => {
+      const id = e.currentTarget.dataset.id;
+      const newQty = +e.currentTarget.value;
+      updateQuantity(id, newQty);
+      loadCart();
+    });
   });
 
   if (cart.length !== 0) {
@@ -64,7 +74,14 @@ async function loadCart() {
     });
   });
 }
-
+function updateQuantity(productId, quantity) {
+  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  const item = cart.find(i => i.id === productId);
+  if (item && quantity > 0){
+    item.quantity = quantity;
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+  }
+}
 function removeFromCart(productId) {
   let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
   cart = cart.filter(item => item.id !== productId);

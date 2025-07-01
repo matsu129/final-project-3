@@ -72,55 +72,104 @@ function renderDailySalesChart(sales) {
   });
 
   const dateKeys = Object.keys(dailyTotals).sort();
-  const startDate = new Date(dateKeys[0]);
-  const endDate = new Date(dateKeys[dateKeys.length - 1]);
+  const startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - 11);
+  startDate.setDate(1);
+  const endDate = new Date();
+  endDate.setDate(1);
+  endDate.setMonth(endDate.getMonth() + 1);
+  const monthlyMap = {};
 
-  function generateDateRange(start, end) {
-    const result = [];
-    const current = new Date(start);
-    while (current <= end) {
-      const yyyy = current.getFullYear();
-      const mm = String(current.getMonth() +1).padStart(2, '0');
-      const dd = String(current.getDate()).padStart(2, '0');
-      result.push(`${yyyy}-${mm}-${dd}`);
-      current.setDate(current.getDate() + 1);
+  for (let d = new Date(startDate); d < endDate; d.setMonth(d.getMonth() + 1)) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const key = `${yyyy}-${mm}`;
+    monthlyMap[key] = [];
+
+    const daysInMonth = new Date(yyyy, d.getMonth() + 1, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dd = String(day).padStart(2, '0');
+      const fullDate = `${key}-${dd}`;
+      const amount = dailyTotals[fullDate] || 0;
+      monthlyMap[key].push({ date: fullDate,amount });
     }
-    return result;
   }
+  
+  const monthSelect = document.getElementById('month-select');
+  Object.keys(monthlyMap).forEach(month => {
+    const option = document.createElement('option');
+    option.value = month;
+    option.textContent = month;
+    monthSelect.appendChild(option);
+  });
 
-  const allDates = generateDateRange(startDate, endDate);
-  const completeTotals = allDates.map(date => dailyTotals[date] ?? 0);
+  let chart;
 
-  const ctx = document.getElementById('dailySalesChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: allDates,
-      datasets: [{
-        label: 'Daily Sales (¥)',
-        data: completeTotals,
-        fill: false,
-        borderColor:'rgba(255, 99, 132, 1)',
-        tension: 0.3
-      }]
-    },
-    options: {
-      scales: {
-        x: { 
-          title: { display: true, text: 'Date' } ,
-          ticks: { maxRotation: 90, minRotation: 45}
-        },
-        y: { 
-          title: { display: true, text: 'Sales (¥)'},
-          beginAtZero: true
-        }
-      },
-      responsive: true,
-      plugins: {
-        tooltip: { mode: 'index', intersect: false },
-        legend: { display: true }
-      }
+  function updateChart(month) {
+    const data = monthlyMap[month] || [];
+    const labels = data.map(d => d.date);
+    const amounts = data.map(d => d.amount);
+    const total = amounts.reduce((sum, v) => sum + v, 0);
+
+    document.getElementById('monthly-total').textContent = `Total Sales for ${month}: ¥${total.toLocaleString()}`;
+
+    const [year, monthNum] = month.split('-').map(Number);
+    const prevMonthDate = new Date(year, monthNum - 2);
+    const prevMonthKey = `${prevMonthDate.getFullYear()}-${String(prevMonthDate.getMonth() + 1).padStart(2, '0')}`;
+    const prevData = monthlyMap[prevMonthKey] || [];
+    const prevTotal = prevData.reduce((sum, d) => sum + d.amount, 0);
+    const diff = total - prevTotal;
+    const diffPercent = prevTotal === 0 ? 'N/A' : ((diff / prevTotal) * 100).toFixed(1) + '%';
+    const sign = diff >= 0 ? '+' : '';
+
+    document.getElementById('monthly-diff').textContent =
+      prevTotal === 0
+        ? `No data for previous month (${prevMonthKey})`
+        : `Compared to ${prevMonthKey}: ${sign}¥${Math.abs(diff).toLocaleString()} (${sign}${diffPercent})`;
+
+    if (chart) {
+      chart.destroy();
     }
+
+    const ctx = document.getElementById('dailySalesChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels, 
+        datasets: [{
+          label: `Daily Sales for ${month}(¥)`,
+          data: amounts,
+          fill: false,
+          borderColor:'rgba(255, 99, 132, 1)',
+          tension: 0.3
+        }]
+      },
+      options: {
+        scales: {
+          x: { 
+            title: { display: true, text: 'Date' } ,
+            ticks: { maxRotation: 90, minRotation: 45}
+          },
+          y: { 
+            title: { display: true, text: 'Sales (¥)'},
+            beginAtZero: true
+          }
+        },
+        responsive: true,
+        plugins: {
+          tooltip: { mode: 'index', intersect: false },
+          legend: { display: true }
+        }
+      }
+    });
+  }
+  const lastMonth = Object.keys(monthlyMap).pop();
+  updateChart(lastMonth);
+  monthSelect.value = lastMonth;
+
+  monthSelect.addEventListener('change', () => {
+    updateChart(monthSelect.value);
   });
 }
 
