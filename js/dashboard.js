@@ -18,12 +18,23 @@ async function loadDashboardData() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const sortSelect = document.getElementById('sort-select');
-  sortSelect.addEventListener('change', () => {
-    const [sortBy, order] = sortSelect.value.split('-');
-    renderStockSalesChart(globalProducts, sortBy, order);
-  })
-})
+  const sortBySelect = document.getElementById('sort-by');
+  const orderSelect = document.getElementById('select-order');
+
+  if (sortBySelect && orderSelect) {
+    const handleSortChange = () => {
+      const sortBy = sortBySelect.value;
+      const order = orderSelect.value;
+      renderStockSalesChart(globalProducts, sortBy, order);
+    };
+
+    sortBySelect.addEventListener('change', handleSortChange);
+    orderSelect.addEventListener('change', handleSortChange);
+  } else {
+    console.error('select elements not found!');
+  }
+});
+
 let chartInstance = null;
 function renderStockSalesChart(products, sortBy = 'stock', order = 'desc') {
   products.sort((a, b) => {
