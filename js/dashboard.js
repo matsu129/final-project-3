@@ -1,27 +1,46 @@
 import { fetchJSON } from './utils.js'
+let globalProducts = [];
 
 async function loadDashboardData() {
   const products = await fetchJSON('/api/products');
+  globalProducts = products;
   const sales = await fetchJSON('/api/sales');
   const reviews = await fetchJSON('/api/reviews');
   const analysis = await fetchJSON('/api/dashboard/analysis');
   const avgScores = analysis.avgScores
   const sentiments = analysis.sentiments;
 
-  renderStockSalesChart(products);
+  renderStockSalesChart(globalProducts);
   renderDailySalesChart(sales);
   renderReviewChart(reviews);
   renderAverageScoreChart(products, avgScores);
   renderSentimentChart(products, sentiments);
 }
 
-function renderStockSalesChart(products) {
+document.addEventListener('DOMContentLoaded', () => {
+  const sortSelect = document.getElementById('sort-select');
+  sortSelect.addEventListener('change', () => {
+    const [sortBy, order] = sortSelect.value.split('-');
+    renderStockSalesChart(globalProducts, sortBy, order);
+  })
+})
+let chartInstance = null;
+function renderStockSalesChart(products, sortBy = 'stock', order = 'desc') {
+  products.sort((a, b) => {
+    const valA = (typeof a[sortBy] === 'string') ? a[sortBy].toLowerCase() : a[sortBy] || 0;
+    const valB = (typeof b[sortBy] === 'string') ? b[sortBy].toLowerCase() : b[sortBy] || 0;
+    return order === 'asc' ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
+  });
+
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
   const ctx = document.getElementById('stockSalesChart').getContext('2d');
   const labels = products.map(p => p.name);
   const soldData = products.map(p => p.sold || 0);
   const stockData = products.map(p => p.stock);
   
-  new Chart(ctx, {
+  chartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labels,
@@ -42,10 +61,11 @@ function renderStockSalesChart(products) {
     },
     options: {
       responsive: true,
+      indexAxis: 'y',
       plugins: {
         title: {
           display: true,
-          text: 'Stock and Sold per Product'
+          text: `Stock and Sold per Product (sorted by ${sortBy}, ${order})`
         }
       },
       scales : {

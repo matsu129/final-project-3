@@ -45,7 +45,7 @@ section h2{
 canvas {
   width: 100% !important;
   height: auto !important;
-  max-height: 400px;
+  max-height: 800px;
 }
 #monthly-total, #monthly-diff {
   font-weight: bold;

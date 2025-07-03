@@ -46,7 +46,7 @@ function observeCards() {
       }
     });
   }, { 
-    threshold: 0.3 
+    threshold: 0.4 
   });
   allCards.forEach(card => {
     observer.observe(card);

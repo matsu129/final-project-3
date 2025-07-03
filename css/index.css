@@ -67,7 +67,7 @@ section a:hover h3{
 .product-card {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 1.3s ease, transform 1.3s ease;
 }
 .product-card.visible {
   opacity: 1;
